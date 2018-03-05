@@ -1,0 +1,75 @@
+<!-- we use also the Angular DOM class in app.component.css file 
+  input.ng-invalid.ng-touched{
+  border: 1px solid red;
+  background-color: rgb(223, 196, 201);   
+}
+input.ng-touched.ng-valid{
+  background-color: rgb(178, 230, 183);   
+}
+-->
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <!--property binding: the  signUpForm should be attached to this form 
+        we tell angular, don't infer a form ou create a form for me,
+        use my form 'signUpForm' instead
+        use 'formControlName' directive to tell angular the name of the control in typescripe
+      -->
+      <form [formGroup]='signUpForm' (ngSubmit)="onSubmit()">
+        <div id="user-data"  formGroupName="userData">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <!-- we could use [formControlName]="'username'" (such as case for formGroup above), 
+              but at the end we bind to string not to a real property...
+              if we use [formControlName]="username" angular will look for property named username in typescript,
+              which why we use a simple binding to a string formControlName='username'.
+           -->
+            <input type="text" 
+                   id="username" 
+                   class="form-control"
+                   formControlName='username'>
+                   <!-- adding 'required' attributes to the input type wouldn't work in reactive approach 
+                    because we aren't configuring the form in the template we only synchronizing it with the property signUpForm
+                    the config is done in typescript instead, more accurately in FormControl() contructor!!!.                    
+                  -->
+                  <span *ngIf="!signUpForm.get('userData.username').valid && signUpForm.get('userData.username').touched"                  
+                  class="help-block  alert alert-danger">
+                      <span *ngIf="signUpForm.get('userData.username').errors['nameIsForbbiden']">The username is invalid</span>
+                      <span *ngIf="signUpForm.get('userData.username').errors['required']">This field is required</span>
+                </span>                 
+          </div>
+          <div class="form-group">
+            <label for="email">Mail</label>
+            <input type="email" 
+                   id="email" 
+                   class="form-control"
+                   formControlName='email'>                   
+            <span *ngIf="!signUpForm.get('userData.email').valid && signUpForm.get('userData.email').touched" 
+                  class=" help-block alert alert-danger">please enter a valid email</span>
+          </div>    
+        </div>  
+        <div class="radio" *ngFor="let gender of genders">
+            <label>
+              <input type="radio" 
+                     name="gender"
+                     [value]="gender"
+                     formControlName='gender'>{{ gender }}                   
+            </label>         
+        </div>          
+        <div class="form-group" formArrayName="hobbies">          
+          <h4>Your hobbies</h4>
+          <button class="btn btn-success" (click)="onAddHoppy()" type="button">Add Hoppy</button>
+         <div class="form-group"
+          *ngFor="let hoppyControl of signUpForm.get('hobbies').controls; let i = index">
+          <!-- the dynamically created input wouldn't have a custom name (chosen by us!) 
+          but it will have a name of its index in the formArray: [formControlName]="index" -->
+          <input type="text" class="form-control" [formControlName]="i"> 
+         </div>         
+        </div>
+        <span *ngIf="!signUpForm.valid && signUpForm.touched" 
+        class=" help-block alert alert-danger">please enter a valid data</span>  
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
