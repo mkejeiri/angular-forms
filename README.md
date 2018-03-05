@@ -1,11 +1,15 @@
 # Simple example about *Forms* in Angular 
 
-----
-## We explore in details two ways on how to operate with *Forms* in Angular
+
+## the examples explore in details two ways on how to operate with *Forms* in Angular:
+
 >  - 'Template-Driven' approach: Angular infers the form Object from the DOM.
 >  - 'Reactive' approach : Form is created programmatically in Typescript and synchronized with the DOM.
+>
+>
+>
+>  > *Note* : for each case a further explanation is provided inside the code. 
 
-----
 ## Usage:
 
     1. get inside on either 'Forms-reactive' or 'Forms-Template-Driven' directory
