@@ -16,9 +16,9 @@ export class AppComponent {
   submitted:boolean=false;
 
   /**
-   * Using a selector 'f' (local ref #f in the template) 
-   * we could also get access to the form!
-   * we could also pass a component instead of selector (string) to get a access 
+   *  @ViewChild('f') signUpForm:NgForm : 
+   * Using a selector 'f' (local ref #f in the template) we get access to the form!
+   * In general : we could also pass a component instead of selector 'f' (string) to get a access 
    * to the first occurence of the component nested in the AppComponent 
    */
   @ViewChild('f') signUpForm:NgForm;
@@ -26,19 +26,22 @@ export class AppComponent {
     const suggestedName = 'Superuser';
     const suggestedEmail = 'Superuser@email.com';
 
-    //a better approach is to use an update (this.signUpForm.path), 
-    //otherwise all values will be replaced by this.signUpForm.setValue
-  //   this.signUpForm.setValue(
-  //     {
-  //       userData:
-  //             {'username':suggestedName,
-  //              'email':suggestedEmail              
-  //             },
-  //       secret:'pet',
-  //       questionAnswer:this.answer,
-  //       gender:'Male'
-  //     }
-  // );
+ 
+  /**
+   * a better approach to keep input data is to use an update (this.signUpForm.form.patchValue), 
+   * otherwise all values will be replaced by this.signUpForm.setValue  
+  * this.signUpForm.setValue({ 
+         userData:
+              {'username':suggestedName,
+               'email':suggestedEmail              
+              },
+        secret:'pet',
+        questionAnswer:this.answer,
+        gender:'Male'
+      }
+  );
+    */    
+ 
     this.signUpForm.form.patchValue(
         {
           userData:
