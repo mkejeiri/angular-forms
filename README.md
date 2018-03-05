@@ -1,7 +1,7 @@
 # Simple example about *Forms* in Angular 
 
 ----
-## We explore details two ways on how to operate with *Forms*
+## We explore in details two ways on how to operate with *Forms* in Angular
 >  - 'Template-Driven' approach: Angular infers the form Object from the DOM.
 >  - 'Reactive' approach : Form is created programmatically in Typescript and sync with the DOM.
 
@@ -13,6 +13,6 @@
     3. ng serve
 
 ----
-##### You may also need to run,i.e bootstrap package has been removed from angular newer versions:
+##### You may also need to run the following (i.e bootstrap package has been removed from angular newer versions!):
 
     npm install bootstrap@3.3.7
