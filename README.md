@@ -1,4 +1,4 @@
-# Simple example about *Forms* in Angular
+# Simple example about *Forms* in Angular 
 
 ----
 ## We explore details two ways on how to operate with *Forms*
