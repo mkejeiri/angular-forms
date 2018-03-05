@@ -3,10 +3,10 @@
 ----
 ## We explore in details two ways on how to operate with *Forms* in Angular
 >  - 'Template-Driven' approach: Angular infers the form Object from the DOM.
->  - 'Reactive' approach : Form is created programmatically in Typescript and sync with the DOM.
+>  - 'Reactive' approach : Form is created programmatically in Typescript and synchronized with the DOM.
 
 ----
-## get inside each of usage
+## Usage:
 
     1. get inside on either 'Forms-reactive' or 'Forms-Template-Driven' directory
     2. npm install
