@@ -106,8 +106,8 @@ export class AppComponent implements OnInit {
 
   }
   /**
-   * Unlike the forms create by angular (template approach), we don't need a reference to the form
-   * because we created it as property of component (this.signUpForm)
+   * Unlike the template approach create by angular (template approach), we don't need tio have a reference to the form
+   * through some ChildView, because we created it as property of component (this.signUpForm)
    * we could use reactive approach if we have a model that we need to bind to and also make 
    * easily sure that the form structure match the app model, e.g:
    * this.signUpForm.value = {username: "myUserName", email: "myEmail@gmail.com", gender: "Male"} 
