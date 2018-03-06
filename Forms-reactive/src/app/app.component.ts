@@ -80,9 +80,12 @@ export class AppComponent implements OnInit {
                         [this.forbiddenEmails])
       }),
       'gender':new FormControl('Male'),
-      'hobbies': new FormArray([]) //intialy this hold and array of controls!!!
+      'hobbies': new FormArray([]) //initialy this hold and array of controls!!! e.g. new FormArray([new FormControl()])
     }); 
-
+    /*
+    * HERE: we listen to the form  valueChanges & statusChanges
+    * we could also listen to an individual control valueChanges & statusChanges 
+    */
     this.signUpForm.valueChanges.subscribe((value)=>{
       // console.log(value);
     })
