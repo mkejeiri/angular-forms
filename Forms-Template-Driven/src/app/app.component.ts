@@ -85,9 +85,12 @@ export class AppComponent {
      * if you pass the same JS object as for setValue, hence you could only reset specific values
      * see example here after where we keep some original values
      
-      this.signUpForm.reset({
-      userData:
-            {'username':this.signUpForm.value.userData.username},gender: this.defaultGender, secret:this.defaultQuestion});    
+    this.signUpForm.reset({
+        userData:
+                {'username':this.signUpForm.value.userData.username},
+        gender: this.defaultGender, 
+        secret:this.defaultQuestion
+    });    
      */    
 
 
