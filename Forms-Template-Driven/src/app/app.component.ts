@@ -8,17 +8,18 @@ import { ViewChild } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  defaultQuestion:string='pet';
+  //one way binding with the select input: [ngModel] ="defaultQuestion"
+  readonly defaultQuestion:string='pet';
   answer:string='';
   genders:string[]=['Male','Female'];
-  defaultGender:string = this.genders[1];
+  readonly defaultGender:string = this.genders[0];
   user={ username:'',email:'',questionAnswer:'', gender:'',secretQuestion:''};
   submitted:boolean=false;
 
   /**
-   *  @ViewChild('f') signUpForm:NgForm : 
-   * Using a selector 'f' (local ref #f in the template) we get access to the form!
-   * In general : we could also pass a component instead of selector 'f' (string) to get a access 
+   * Using a selector 'f' (local ref #f in the template) 
+   * we could also get access to the form!
+   * we could also pass a component instead of selector (string) to get a access 
    * to the first occurence of the component nested in the AppComponent 
    */
   @ViewChild('f') signUpForm:NgForm;
@@ -26,22 +27,19 @@ export class AppComponent {
     const suggestedName = 'Superuser';
     const suggestedEmail = 'Superuser@email.com';
 
- 
-  /**
-   * a better approach to keep input data is to use an update (this.signUpForm.form.patchValue), 
-   * otherwise all values will be replaced by this.signUpForm.setValue  
-  * this.signUpForm.setValue({ 
-         userData:
-              {'username':suggestedName,
-               'email':suggestedEmail              
-              },
-        secret:'pet',
-        questionAnswer:this.answer,
-        gender:'Male'
-      }
-  );
-    */    
- 
+    //a better approach is to use an update (this.signUpForm.path), 
+    //otherwise all values will be replaced by this.signUpForm.setValue
+  //   this.signUpForm.setValue(
+  //     {
+  //       userData:
+  //             {'username':suggestedName,
+  //              'email':suggestedEmail              
+  //             },
+  //       secret:'pet',
+  //       questionAnswer:this.answer,
+  //       gender:'Male'
+  //     }
+  // );
     this.signUpForm.form.patchValue(
         {
           userData:
@@ -73,7 +71,7 @@ export class AppComponent {
   //the 'f' as param for onSubmit() in the template.
   onSubmit(){ 
     this.submitted=true;
-    //console.log(this.signUpForm);
+    // console.log(this.signUpForm.value);
     this.user.username=this.signUpForm.value.userData.username;
     this.user.email=this.signUpForm.value.userData.email;    
     this.user.questionAnswer=this.signUpForm.value.questionAnswer;
@@ -85,12 +83,14 @@ export class AppComponent {
     /**
      * this will have the same behviour as this.signUpForm.setValue     
      * if you pass the same JS object as for setValue, hence you could only reset specific values
-     * see example here after where we keep the username original value
+     * see example here after where we keep some original values
      
       this.signUpForm.reset({
-        userData:
-              {'username':this.signUpForm.value.userData.username}}); 
+      userData:
+            {'username':this.signUpForm.value.userData.username},gender: this.defaultGender, secret:this.defaultQuestion});    
      */    
+
+
   }
 
 
