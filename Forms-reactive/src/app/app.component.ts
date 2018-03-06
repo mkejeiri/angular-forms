@@ -113,7 +113,7 @@ export class AppComponent implements OnInit {
       //this will empty the form
       this.signUpForm.reset();
     }
-    onAddHoppy(){
+    onAddHobby(){
       const control = new FormControl(null,[Validators.required]);
       (<FormArray>this.signUpForm.get('hobbies')).push(control);
     }
