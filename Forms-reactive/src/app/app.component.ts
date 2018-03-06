@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   readonly forbiddenUserNames:string[]=['John','Bob'];
 
   /* *
-   * In the template approach we already imported ngForms (FormsModule,NgModule), i.e. 
+   * In the template approach we already imported ngForm (FormsModule,NgModule), i.e. 
    * it's an automatic wrapper of 'FormGroup', in Angular a from is just 
    * a group of controls, hence the overall form is also a 'FormGroup'.
    * */
