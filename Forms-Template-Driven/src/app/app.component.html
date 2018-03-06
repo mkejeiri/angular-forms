@@ -27,6 +27,15 @@
       
         @ViewChild('f') signUpForm:NgForm;
           -->
+      
+      
+       <!--                    W A R N I N G: 
+          if we listen to submit click  on the submit button [(click) = "onSubmit()"], the defaut behaviour 
+          will be triggered and form will be submitted, it will trigger JS submit event, 
+          this is how it is built in the HTML...
+          to prevent this, angular provides us with a directive ngSubmit (to be placed in the form tag) 
+          which listen to submit event=(ngSubmit)
+          -->
       <form (ngSubmit) ="onSubmit()" #f="ngForm"> 
         <!-- 
          1- we could group all relevant data input by using (ngModelGroup="userData")  userData will be turn 
@@ -57,8 +66,8 @@
                         required
                         #username="ngModel">
                         <!-- required is HTML attribute, angular will detect it, 
-                        so it acts as selector for built-in directive shipped with angular
-                        and will configure the form to make that invalid if empty 
+                        it acts as selector in the built-in directive ngModel shipped within angular
+                        and will configure the control to make it invalid if empty! 
                           -->                            
 
                           <!-- 
@@ -85,7 +94,7 @@
                     #email="ngModel">
                      <!-- 
                       unlike required, email is not a built-in HTML attribute, 
-                      but it's still directive for angular (not a selector!)
+                      but it's still it known directive for angular (not a selector though!)
                     -->
                     <span class="help-block alert alert-danger" *ngIf="!email.valid && email.touched">Email invalid</span>
           </div>          
@@ -95,12 +104,12 @@
           <label for="secret">Secret Questions</label>
 
           <!-- 
-            registering and also using one way binding of default binding 
-            (defaultQuestion) with '[ngModel]' instead of 'ngModel':
+            IN ONE SHOT, registering and also using one way binding of default binding 
+            (defaultQuestion) with '[ngModel] ="defaultQuestion"' instead of using only 'ngModel':
              
-            because of ngModel directive, the 'select' input is turned into control by angular in 
+            B E C A U S E of ngModel directive, the 'select' input is turned into control by angular in 
             the background, also in one shot, we bind the control into a value (not 2 ways binding!) 
-            by using:[ngModel] ="defaultQuestion"
+            by using:[ngModel] ="defaultQuestion" (in 'ts' defaultQuestion is a readonly property)
           -->
           <select id="secret" name ="secret"
                   class="form-control" 
@@ -112,8 +121,8 @@
 
         <div class="form-group">
             <label>Message:</label>
-            <!-- use ngModel directive to register textarea and turn it into a control by 
-              angular and ALSO to set 2 ways binding with the 'answer' property IN ONE SHOT
+            <!-- IN ONE SHOT, use ngModel directive to register textarea and turn it into a control by 
+              angular, and ALSO to set 2 ways binding with the 'answer' property 
               using: [(ngModel)]="answer"
             -->
             <textarea name="questionAnswer" 
@@ -138,11 +147,13 @@
             </label>
           </div>
 
-        <!-- W A R N I N G: if we listen to submit (click) here the defaut behaviour 
+        <!--                    W A R N I N G: 
+          if we listen to submit click  on the submit button [(click) = "onSubmit()"], the defaut behaviour 
           will be triggered and form will be submitted, it will trigger JS submit event, 
-          this is how it build into HTML...
+          this is how it is built in the HTML...
           to prevent this, angular provides us with a directive ngSubmit (to be placed in the form tag) 
-          which listen to submit event=(ngSubmit) -->
+          which listen to submit event=(ngSubmit)
+          -->
         <button class="btn btn-primary" type="submit" [disabled]="!f.valid">Submit</button>
       </form>
     </div>
