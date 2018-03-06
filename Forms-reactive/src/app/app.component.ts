@@ -17,8 +17,8 @@ import { Observable } from 'rxjs/Observable';
  *                          and sync with the DOM.
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 export class AppComponent implements OnInit {
-  genders:string[]=['Male','Female'];
-  forbiddenUserNames:string[]=['John','Bob'];
+  readonly genders:string[]=['Male','Female'];
+  readonly forbiddenUserNames:string[]=['John','Bob'];
 
   /* *
    * In the template approach we already imported ngForms (FormsModule,NgModule), i.e. 
