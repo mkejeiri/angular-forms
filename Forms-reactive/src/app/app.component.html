@@ -38,7 +38,11 @@ input.ng-touched.ng-valid{
                    <!-- 
                     adding 'required' attributes to the input type wouldn't work in reactive approach 
                     because we aren't configuring the form in the template we only synchronizing it with the property signUpForm
-                    the config is done in typescript instead, more accurately in FormControl() contructor!!!.                    
+                    the config is done in typescript instead, more accurately in FormControl() contructor!!!.    
+
+                    ALSO, unlike template-driven approach we cannot access username control through #username="ngModel", 
+                    and then use : *ngIf="!username.valid && username.touched", we need to access the control 
+                    through 'signUpForm' get method as used next.                     
                     -->
                   <span *ngIf="!signUpForm.get('userData.username').valid && signUpForm.get('userData.username').touched"                  
                   class="help-block  alert alert-danger">
