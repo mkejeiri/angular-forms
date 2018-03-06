@@ -46,7 +46,9 @@ input.ng-touched.ng-valid{
 
                     ALSO, unlike template-driven approach we cannot access username control through #username="ngModel", 
                     and then use : *ngIf="!username.valid && username.touched", we need to access the control 
-                    through 'signUpForm' get method as used next.                     
+                    through 'signUpForm' get method, we need also to provide a full path ('userData.username') since the username 
+                    control is nested inside userData, because the username is unknown at signUpForm/form level, only userData control
+                    is visible at that level!!!.                     
                     -->
                   <span *ngIf="!signUpForm.get('userData.username').valid && signUpForm.get('userData.username').touched"                  
                   class="help-block  alert alert-danger">
