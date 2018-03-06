@@ -16,6 +16,10 @@ input.ng-touched.ng-valid{
                     e.g : formControlName='username'
       -->
       <form [formGroup]='signUpForm' (ngSubmit)="onSubmit()">
+        <!--
+          We need to wrapp username and email controls inside a from group data to be in sync with ts implementation,
+          otherwide the program will break!!!
+         -->
         <div id="user-data"  formGroupName="userData">
           <div class="form-group">
             <label for="username">Username</label>
