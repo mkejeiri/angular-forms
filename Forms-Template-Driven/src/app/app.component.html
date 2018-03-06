@@ -1,11 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-        <!-- 
-            angular provides us with a directive ngSubmit 
-            to prevent a default behavior of the submit button -->
-
-        <!-- 
+      <!-- 
             In the 'ts' we use form:ElementRef and it doesn't give access to the JS created by angular,
             we can set #f to something exposed by angular, we know that the form element 
             is kind of a selector for a directive build into angular which will create 
@@ -16,7 +12,7 @@
 
 
       <!-- the following approach's been replaced: 
-        <form (ngSubmit) ="onSubmit(f)" #f="ngForm">  
+        <form (ngSubmit) ="onSubmit(f)" #f="ngForm">  by <form (ngSubmit) ="onSubmit()" #f="ngForm"> 
 
             B E C A U S E :
 
