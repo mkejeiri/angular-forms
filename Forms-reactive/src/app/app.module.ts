@@ -19,7 +19,12 @@ import { AppComponent } from './app.component';
     // FormsModule, /* we don't need this for reactive approach, it required only for template approach */
     HttpModule,    
     ReactiveFormsModule /* we need this for reactive approach, it contains all tools need to build 
-                          our forms on our own and connect to our HTML code*/
+                          our forms on our own and sync with our HTML template.
+                          we need 'ReactiveFormsModule' to attach or to sync the 'signUpForm' with the form using 
+                          a form formGroup directive:
+                                e.g. (***): <form [formGroup]='signUpForm' (ngSubmit)="onSubmit()">
+                          if we forget to include the 'ReactiveFormsModule', (***) will give an error                           
+                          */
 
   ],
   providers: [],
