@@ -11,27 +11,29 @@ input.ng-touched.ng-valid{
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <!--property binding: the  signUpForm should be attached to this form 
-        we tell angular, don't infer a form ou create a form for me,
+        we tell angular, don't infer a form or create a form for me,
         use my form 'signUpForm' instead
-        use 'formControlName' directive to tell angular the name of the control in typescripe
+        use 'formControlName' directive to tell angular the name of the control in typescript
       -->
       <form [formGroup]='signUpForm' (ngSubmit)="onSubmit()">
         <div id="user-data"  formGroupName="userData">
           <div class="form-group">
             <label for="username">Username</label>
-            <!-- we could use [formControlName]="'username'" (such as case for formGroup above), 
-              but at the end we bind to string not to a real property...
-              if we use [formControlName]="username" angular will look for property named username in typescript,
-              which why we use a simple binding to a string formControlName='username'.
-           -->
+            <!-- 
+              we could use [formControlName]="'username'", but at the end we bind to string not to a real property,
+              if we use [formControlName]="username" (the same goes for formGroup above) angular will look for 
+              property named username in typescript file (ts), which why we avoid a simple binding to a string: 
+               e.g. : formControlName="username".
+             -->
             <input type="text" 
                    id="username" 
                    class="form-control"
                    formControlName='username'>
-                   <!-- adding 'required' attributes to the input type wouldn't work in reactive approach 
+                   <!-- 
+                    adding 'required' attributes to the input type wouldn't work in reactive approach 
                     because we aren't configuring the form in the template we only synchronizing it with the property signUpForm
                     the config is done in typescript instead, more accurately in FormControl() contructor!!!.                    
-                  -->
+                    -->
                   <span *ngIf="!signUpForm.get('userData.username').valid && signUpForm.get('userData.username').touched"                  
                   class="help-block  alert alert-danger">
                       <span *ngIf="signUpForm.get('userData.username').errors['nameIsForbbiden']">The username is invalid</span>
