@@ -40,22 +40,25 @@ export class AppComponent implements OnInit {
     //   */
       
     //   'username':new FormControl(null, Validators.required) , /* defaut value is null*/
-    //   'email':new FormControl(null, [Validators.required, Validators.email]), //this doesn't need to be executed we pass a ref to the methods 
-    //                                                                           //that why () are ommited!!!
+    //   'email':new FormControl(null, [Validators.required, Validators.email]), //note that Validators.required() is a function,this won't be immediately
+                                                                                  //executed, at this point-in-time,we pass only a ref to the methods
+                                                                                  //that why '()' are ommited!!!
     //   'gender':new FormControl('Male')
     // }); 
 
     //nested FormGroup
     this.signUpForm = new FormGroup({
-      /* we use '' to avoid the destruction of property 'username' during minification and to make
-        sure that the property name is kept (might not necessary, but just in case!),  
-        because this name porperty will be referenced later in the HTML code!
+      /* we use quotes ('') to avoid the destruction of property 'username' during minification and to make
+        sure that the property name is kept (might not be necessary, but just in case!),  
+        because this 'name property' will be referenced later in the HTML code!
         example:
         'username':new FormControl('default username') , //'default username' will be a the defaut value of username control.
       */
-      //nested FormGroup :  'userData'
+      //nested 'userData' FormGroup:  
       'userData': new FormGroup({
-        'username':new FormControl(null, [Validators.required,
+        'username':new FormControl(null, [Validators.required,//note that Validators.required() (same goes for email) is a function,
+                                                              //this won't be immediately executed, at this point-in-time,
+                                                              //we pass only a ref to the methods, that why '()' are ommited!!!
                         this.forbiddenNames.bind(this)  /* * * * * * * * * W A R N I N G * * * * * * * * * * * * * * * * * * 
                                                         * We need to bind forbiddenNames function to 'this' (this component!),
                                                         * because Angular calls it when it checks the validity, at that point in time,
@@ -68,13 +71,14 @@ export class AppComponent implements OnInit {
           ]), 
         'email':new FormControl(null, 
                         //array of sync validator
-                        [Validators.required,Validators.email],//this doesn't need to be executed we pass 
-                                                  //a ref to the methods that why () are ommited!!!      
+                        [Validators.required,Validators.email],//note that Validators.email() (same goes for required) is a function,
+                                                              //this won't be immediately executed, at this point-in-time,
+                                                              //we pass only a ref to the methods, that why '()' are ommited!!!  
                         
                         //array of async validator
-                        //[this.forbiddenEmails.bind(this)] //we don't use 'this' inside forbiddenEmails, so no need to bind                                 
-                        [this.forbiddenEmails]   
-                              )}),
+                        //[this.forbiddenEmails.bind(this)] //we don't use 'this' inside forbiddenEmails func, so no need to do 'bind'                                 
+                        [this.forbiddenEmails])
+      }),
       'gender':new FormControl('Male'),
       'hobbies': new FormArray([])
     }); 
@@ -120,15 +124,15 @@ export class AppComponent implements OnInit {
 
   /* * * * * * * * * * * * * * C U S T O M  V A L I D A T O R * * * * * * * * * * * * * * * * * * 
    * A validator is utlimately a function that get automatically executed 
-   * by angular when it checks the validity of formcontrol whenever there is a change on that control.
+   * by angular when it checks the validity of FormControl whenever there is a change on that control.
    */
   forbiddenNames(control:FormControl):{[x:string]:boolean}{
         /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
         * when the control value is not forbbiden, we should return null instead of {'nameIsForbbiden':false}
         * otherwise, Angular will not understand that the control is valid!!!!
         * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
-        *    info: -1 is true: the func returns then 'true' and control stays invalid,
-        *    so we need to check against -1.  
+        *    info: -1 is true: the func will return 'true' if indexOf = -1 and control stays invalid,
+        *    so we need to check against -1, e.g. :(indexOf !== -1)? true:false;
         //  */
         if (control.value !== null){
           return (this.forbiddenUserNames
@@ -142,7 +146,7 @@ export class AppComponent implements OnInit {
 /* *
  * This is async custom validation which suppose to reach the backend and get data.
  * promise & observables are 2 constructs which handles async data.  
- * we don't bind(this): because no this is required inside the func!!!
+ * we don't bind(this): because we don't use 'this' keyword to refer to this component inside the func
  */
   forbiddenEmails(control:FormControl):Promise<any> | Observable <any>{
     const promise = new Promise<any>((resolve,reject) => {
@@ -150,7 +154,7 @@ export class AppComponent implements OnInit {
         if (control.value === 'test@test.com') {
           /**
            * We are suppose to return data ({'emailIsForbidden':true)
-           * but since we are inside a promise we resolve instead!!!.
+           * but since we are inside a promise we use a resolve instead!!!.
            */
           resolve({'emailIsForbidden':true});
         } else{
