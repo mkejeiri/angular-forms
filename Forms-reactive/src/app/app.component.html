@@ -10,20 +10,26 @@ input.ng-touched.ng-valid{
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <!--property binding: the  signUpForm should be attached to this form 
-        we tell angular, don't infer a form or create a form for me,
-        use my form 'signUpForm' instead
-        use 'formControlName' directive to tell angular the name of the control in typescript
+      <!--property binding: the 'signUpForm' should be attached or synchronized with this form 
+        - we tell angular, don't infer a form or create a form for me,use my formGroup 'signUpForm' instead.
+        - use 'formControlName' directive to tell angular the name of the control in typescript
+                    e.g : formControlName='username'
       -->
       <form [formGroup]='signUpForm' (ngSubmit)="onSubmit()">
         <div id="user-data"  formGroupName="userData">
           <div class="form-group">
             <label for="username">Username</label>
             <!-- 
-              we could use [formControlName]="'username'", but at the end we bind to string not to a real property,
-              if we use [formControlName]="username" (the same goes for formGroup above) angular will look for 
-              property named username in typescript file (ts), which why we avoid a simple binding to a string: 
-               e.g. : formControlName="username".
+              we could use [formControlName]="'username'", but at the end we bind to string not to a real property, thus
+              we use formControlName="username" (the same goes for formGroup above):
+               e.g. : formControlName="username" (or [formControlName]="'username'") , username as string not as property: 
+                  ts code =>: 
+                   this.signUpForm = new FormGroup({'userData': new FormGroup({
+                        'username':new FormControl(null, [Validators.required,this.forbiddenNames.bind(this)]), 
+                        'email':new FormControl(null,[Validators.required,Validators.email],[this.forbiddenEmails])
+                        }),'gender':new FormControl('Male'),'hobbies': new FormArray([])}); 
+            NOTE that : [formControlName]="username" will tell angular to look for username property in ts which doesn't exist!!! 
+                        Unlike [formGroup]='signUpForm' where signUpForm is a real property in ts
              -->
             <input type="text" 
                    id="username" 
