@@ -73,7 +73,11 @@ input.ng-touched.ng-valid{
                      [value]="gender"
                      formControlName='gender'>{{ gender }}                   
             </label>         
-        </div>          
+        </div>
+         <!-- 
+            we use formArrayName="hobbies" to connect with signUpForm ('hobbies': new FormArray([])  and to tell angular that our arrayForm
+            will be placed in this div 
+          -->
         <div class="form-group" formArrayName="hobbies">          
           <h4>Your hobbies</h4>
           <button class="btn btn-success" (click)="onAddHobby()" type="button">Add Hobby</button>
@@ -83,7 +87,7 @@ input.ng-touched.ng-valid{
           but it will have a name of its index in the formArray: [formControlName]="index" -->
           <input type="text" class="form-control" [formControlName]="i"> 
          </div>         
-        </div>
+        </div>       
         <span *ngIf="!signUpForm.valid && signUpForm.touched" 
         class=" help-block alert alert-danger">please enter a valid data</span>  
         <button class="btn btn-primary" type="submit">Submit</button>
