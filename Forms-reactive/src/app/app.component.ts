@@ -80,7 +80,7 @@ export class AppComponent implements OnInit {
                         [this.forbiddenEmails])
       }),
       'gender':new FormControl('Male'),
-      'hobbies': new FormArray([])
+      'hobbies': new FormArray([]) //intialy this hold and array of controls!!!
     }); 
 
     this.signUpForm.valueChanges.subscribe((value)=>{
