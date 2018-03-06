@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
         example:
         'username':new FormControl('default username') , //'default username' will be a the defaut value of username control.
       */
-      //nested 'userData' FormGroup:  
+      //nested 'userData' FormGroup: we could use a FormGroup inside a FormGroup = nested FormGroup!  
       'userData': new FormGroup({
         'username':new FormControl(null, [Validators.required,//note that Validators.required() (same goes for email) is a function,
                                                               //this won't be immediately executed, at this point-in-time,
