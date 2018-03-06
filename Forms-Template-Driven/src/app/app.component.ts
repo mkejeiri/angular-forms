@@ -16,19 +16,21 @@ export class AppComponent {
   user={ username:'',email:'',questionAnswer:'', gender:'',secretQuestion:''};
   submitted:boolean=false;
 
-  /**
-   * Using a selector 'f' (local ref #f in the template) 
-   * we could also get access to the form!
-   * we could also pass a component instead of selector (string) to get a access 
-   * to the first occurence of the component nested in the AppComponent 
+  /* * 
+   * @ViewChild('f') signUpForm:NgForm : this allow us to get access all times to the form by:   
+   * using a selector 'f' (local ref #f in the template) we get access to the form! whenever we like it!
+   *
+   * We could also pass a component instead of selector (string : 'f') to get a access 
+   * to the first occurence of the component nested in the AppComponent:
+   * (eg.: @ViewChild(NestedComponentWinthinAppComp)) myNestedComponentWinthinAppComp: NestedComponentWinthinAppComp;
    */
   @ViewChild('f') signUpForm:NgForm;
   suggestUserName() {
     const suggestedName = 'Superuser';
     const suggestedEmail = 'Superuser@email.com';
 
-    //a better approach is to use an update (this.signUpForm.path), 
-    //otherwise all values will be replaced by this.signUpForm.setValue
+  //a better approach is to use an update (this.signUpForm.form.patchValue), 
+  //otherwise all values will be replaced if we use this.signUpForm.setValue
   //   this.signUpForm.setValue(
   //     {
   //       userData:
@@ -53,22 +55,25 @@ export class AppComponent {
    * We could also use the following signature
    *        onSubmit(form:ElementRef) :  import { ElementRef } from '@angular/core'; 
    *        onSubmit(form:Form) : import { Form } from '@angular/forms';
-   *        to be more accurate we should use:
+   *        to be more accurate the JS form type is HTMLFormElement:
    *            onSubmit(form:HTMLFormElement), HTMLFormElement is pure JS object not a class!
    */
 
-   //ElementRef: is not a JS created by angular in the template we the do the change #f="ngForm"
-
-  //using NgForm is proper way to access a form in the template and we will get:
+   
+  //using NgForm is more powerfull way to access a form in the template (#f="ngForm"), it will allow us to
+  // have full access to the controls of the form : (properties and validation to enhance user experience), e.g.:
   // form.value = {email:"Mail",secret:"teacher",username:"Username"}
+  
+  
+  /*
+  * since we use "@ViewChild('f') signUpForm:NgForm"  we no longer need to pass form as param
+  */
   // onSubmit(form:NgForm){
   //   console.log(form);
   //   console.log('Submitted!');
   // } 
   
-
-  //Alternative approach using child view, we no longer pass 
-  //the 'f' as param for onSubmit() in the template.
+  //Alternative approach: "@ViewChild('f') signUpForm:NgForm", with no params for onSubmit()
   onSubmit(){ 
     this.submitted=true;
     // console.log(this.signUpForm.value);
@@ -82,7 +87,7 @@ export class AppComponent {
     this.signUpForm.reset();    
     /**
      * this will have the same behviour as this.signUpForm.setValue     
-     * if you pass the same JS object as for setValue, hence you could only reset specific values
+     * if we pass the same JS object as for setValue, hence you could only reset specific values
      * see example here after where we keep some original values
      
     this.signUpForm.reset({
